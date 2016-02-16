@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Data;
 
 namespace BeaconInsightsUWP.Converters
 {
-    class VisibleWhenDesktop : IValueConverter
+    public class VisibleWhenDesktop : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
