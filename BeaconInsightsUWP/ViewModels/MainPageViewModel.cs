@@ -12,6 +12,7 @@ using Windows.UI.Core;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using BeaconInsightsUWP.Services.Implementations;
 
 namespace BeaconInsightsUWP.ViewModels
 {
@@ -89,6 +90,11 @@ namespace BeaconInsightsUWP.ViewModels
                 {
                     _beaconManager.ReceivedAdvertisement(eventArgs);
                     BeaconsList = _beaconManager.BluetoothBeacons;
+                    foreach (var beacon in BeaconsList)
+                    {
+                        beacon.PropertyChanged -= Beacon_PropertyChanged;
+                        beacon.PropertyChanged += Beacon_PropertyChanged;
+                    }
                 }
                 catch (ArgumentException e)
                 {
@@ -100,6 +106,19 @@ namespace BeaconInsightsUWP.ViewModels
                     Debug.WriteLine(e);
                 }
             });
+        }
+
+        private void Beacon_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            Beacon beacon = (sender as Beacon);
+            if (e.PropertyName == "ProximityStatus")
+            {
+                if (beacon.ProximityStatus == Beacon.ProximityStatusEnum.GettingCloser && beacon.BeaconType == Beacon.BeaconTypeEnum.Eddystone
+                    && beacon.BeaconFrames.Count > 0 && beacon.BeaconFrames[0] is UrlEddystoneFrame) {
+                    NotificationsService ns = new NotificationsService();
+                    ns.Notify("http://trackseries.tv");
+                }
+            }
         }
 
         private void WatcherOnStopped(BluetoothLEAdvertisementWatcher sender, BluetoothLEAdvertisementWatcherStoppedEventArgs args)
@@ -167,7 +186,8 @@ namespace BeaconInsightsUWP.ViewModels
             return Task.CompletedTask;
         }
 
-        public void SwitchFilteringSetting() {
+        public void SwitchFilteringSetting()
+        {
             FilteringUnknownBeacons = !FilteringUnknownBeacons;
         }
 

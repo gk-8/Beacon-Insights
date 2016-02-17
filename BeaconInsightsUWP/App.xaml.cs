@@ -3,6 +3,8 @@ using Windows.UI.Xaml;
 using System.Threading.Tasks;
 using BeaconInsightsUWP.Services.SettingsServices;
 using Windows.ApplicationModel.Activation;
+using Microsoft.QueryStringDotNET;
+using Windows.System;
 
 namespace BeaconInsightsUWP
 {
@@ -36,15 +38,36 @@ namespace BeaconInsightsUWP
                 var nav = NavigationServiceFactory(BackButton.Attach, ExistingContent.Include);
                 Window.Current.Content = new Views.Shell(nav);
             }
+
             return Task.CompletedTask;
         }
 
         // runs only when not restored from state
-        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
+        public async override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            NavigationService.Navigate(typeof(Views.MainPage));
-            return Task.CompletedTask;
+            // Handle toast activation
+            if (args is ToastNotificationActivatedEventArgs)
+            {
+                var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
+
+                // Parse the query string
+                QueryString arguments = QueryString.Parse(toastActivationArgs.Argument);
+
+                // See what action is being requested 
+                switch (arguments["action"])
+                {
+                    // Open the image
+                    case "openurl":
+                        var url = arguments["url"];
+                        await Launcher.LaunchUriAsync(new Uri(url));
+                        break;
+                }
+            }
+
+            if (NavigationService.CurrentPageType != typeof(Views.MainPage))
+                NavigationService.Navigate(typeof(Views.MainPage));
         }
+
     }
 }
 

@@ -27,7 +27,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddressAsString}"/>
-                    <TextBlock Grid.Row="2" FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding Rssi}"/>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Text="{Binding ProximityRange}"/>
+                        <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding ProximityStatus}" Margin="5,0,0,0"/>
+                    </StackPanel>
                     <TextBlock Grid.Row="3" FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BeaconType}"/>
                 </Grid>
             </Grid>
