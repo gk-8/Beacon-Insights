@@ -411,11 +411,11 @@ namespace UniversalBeaconLibrary.Beacon
         private void CalculateProximityRange()
         {
             ProximityRangeEnum previousProximityRange = ProximityRange;
-            if (Distance == 0)
+            if (Distance <= 0.0)
                 ProximityRange = ProximityRangeEnum.Unknown;
-            else if (Distance > 0.0 && Distance < 0.5)
+            else if (Distance > 0.0 && Distance < 1.0)
                 ProximityRange = ProximityRangeEnum.Immediate;
-            else if (Distance >= 0.5 && Distance < 8.0)
+            else if (Distance >= 1.0 && Distance < 5.0)
                 ProximityRange = ProximityRangeEnum.Near;
             else
                 ProximityRange = ProximityRangeEnum.Far;

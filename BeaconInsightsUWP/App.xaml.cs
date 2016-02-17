@@ -1,7 +1,7 @@
 using System;
 using Windows.UI.Xaml;
 using System.Threading.Tasks;
-using BeaconInsightsUWP.Services.SettingsServices;
+using BeaconInsightsUWP.Services;
 using Windows.ApplicationModel.Activation;
 using Microsoft.QueryStringDotNET;
 using Windows.System;

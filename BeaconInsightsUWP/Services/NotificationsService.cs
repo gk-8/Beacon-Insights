@@ -1,17 +1,18 @@
-﻿using BeaconInsightsUWP.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Windows.UI.Notifications;
 using NotificationsExtensions.Toasts; // NotificationsExtensions.Win10
 using Microsoft.QueryStringDotNET; // QueryString.NET
 
-namespace BeaconInsightsUWP.Services.Implementations
+namespace BeaconInsightsUWP.Services
 {
-    public class NotificationsService : INotificationsService
+    public class NotificationsService
     {
+        public static NotificationsService Instance { get; }
+        static NotificationsService()
+        {
+            // implement singleton pattern
+            Instance = Instance ?? new NotificationsService();
+        }
         public void Notify(string url)
         {
             ToastVisual visual = new ToastVisual()

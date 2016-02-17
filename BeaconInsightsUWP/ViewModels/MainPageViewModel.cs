@@ -12,7 +12,7 @@ using Windows.UI.Core;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using BeaconInsightsUWP.Services.Implementations;
+using BeaconInsightsUWP.Services;
 
 namespace BeaconInsightsUWP.ViewModels
 {
@@ -20,6 +20,7 @@ namespace BeaconInsightsUWP.ViewModels
     {
         private ResourceLoader _resourceLoader;
         private CoreDispatcher _dispatcher;
+        private NotificationsService _notificationsService = NotificationsService.Instance;
         private bool _restartingBeaconWatch;
 
         private readonly BluetoothLEAdvertisementWatcher _watcher;
@@ -74,6 +75,7 @@ namespace BeaconInsightsUWP.ViewModels
         public MainPageViewModel()
         {
             _dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
+            FilteringUnknownBeacons = false;
             // Create the Bluetooth LE watcher from the Windows 10 UWP
             _watcher = new BluetoothLEAdvertisementWatcher { ScanningMode = BluetoothLEScanningMode.Active };
 
@@ -115,8 +117,7 @@ namespace BeaconInsightsUWP.ViewModels
             {
                 if (beacon.ProximityStatus == Beacon.ProximityStatusEnum.GettingCloser && beacon.BeaconType == Beacon.BeaconTypeEnum.Eddystone
                     && beacon.BeaconFrames.Count > 0 && beacon.BeaconFrames[0] is UrlEddystoneFrame) {
-                    NotificationsService ns = new NotificationsService();
-                    ns.Notify("http://trackseries.tv");
+                    _notificationsService.Notify("http://trackseries.tv");
                 }
             }
         }

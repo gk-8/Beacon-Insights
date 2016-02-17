@@ -8,7 +8,7 @@ namespace BeaconInsightsUWP.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter.ToString() == "Reverse")
+            if (parameter != null && parameter.ToString() == "Reverse")
                 return (bool)value ? Visibility.Collapsed : Visibility.Visible;
             else
                 return (bool)value ? Visibility.Visible : Visibility.Collapsed;

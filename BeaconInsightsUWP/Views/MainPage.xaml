@@ -5,7 +5,6 @@
       xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:controls="using:Template10.Controls"
-      xmlns:converters="using:BeaconInsightsUWP.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:BeaconInsightsUWP.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,7 +17,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
-                <Rectangle Fill="Teal" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+                <Rectangle Fill="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
                 <Grid Grid.Column="1" Padding="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -26,7 +25,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddressAsString}"/>
+                    <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Text="{Binding ProximityRange}"/>
                         <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding ProximityStatus}" Margin="5,0,0,0"/>
@@ -35,8 +34,6 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-        <converters:VisibleWhenDesktop x:Name="VisibleWhenDesktop" />
-        <converters:BoolToVisibilityConverter x:Name="BoolToVisibilityConverter"/>
     </Page.Resources>
 
     <Page.DataContext>
@@ -82,8 +79,8 @@
         <!--  page header  -->
         <controls:PageHeader Content="{Binding StatusLabel}">
             <controls:PageHeader.PrimaryCommands>
-                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Filter" Label="Filter unknown beacons" Visibility="{Binding FilterUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Clear" Label="Show all beacons" Visibility="{Binding FilterUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
+                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Filter" Label="Filter unknown beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
+                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Clear" Label="Show all beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}}" />
             </controls:PageHeader.PrimaryCommands>
             <controls:PageHeader.SecondaryCommands>
                 <!--<AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
