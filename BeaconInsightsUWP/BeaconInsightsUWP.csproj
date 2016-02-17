@@ -108,6 +108,7 @@
     <Compile Include="Converters\BluetoothAddressToNameConverter.cs" />
     <Compile Include="Converters\VisibleWhenDesktop.cs" />
     <Compile Include="Models\Annotations.cs" />
+    <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Beacon.cs" />
     <Compile Include="Models\BeaconException.cs" />
     <Compile Include="Models\BeaconFrameBase.cs" />

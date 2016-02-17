@@ -27,6 +27,7 @@ using Windows.Devices.Bluetooth.Advertisement;
 using UniversalBeaconLibrary.Annotations;
 using System.Diagnostics;
 using System.Text;
+using BeaconInsightsUWP.Models;
 
 namespace UniversalBeaconLibrary.Beacon
 {
@@ -411,11 +412,11 @@ namespace UniversalBeaconLibrary.Beacon
         private void CalculateProximityRange()
         {
             ProximityRangeEnum previousProximityRange = ProximityRange;
-            if (Distance <= 0.0)
+            if (Distance <= AppConfig.ZeroDistance)
                 ProximityRange = ProximityRangeEnum.Unknown;
-            else if (Distance > 0.0 && Distance < 1.0)
+            else if (Distance > AppConfig.ZeroDistance && Distance < AppConfig.ImmediateDistance)
                 ProximityRange = ProximityRangeEnum.Immediate;
-            else if (Distance >= 1.0 && Distance < 5.0)
+            else if (Distance >= AppConfig.ImmediateDistance && Distance < AppConfig.NearDistance)
                 ProximityRange = ProximityRangeEnum.Near;
             else
                 ProximityRange = ProximityRangeEnum.Far;
