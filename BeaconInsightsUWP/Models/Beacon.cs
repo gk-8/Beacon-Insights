@@ -381,7 +381,6 @@ namespace UniversalBeaconLibrary.Beacon
             {
                 foreach (var frame in BeaconFrames)
                 {
-
                     if (frame is UidEddystoneFrame)
                         txPower = Convert.ToDouble((frame as UidEddystoneFrame).RangingData) - 41;
                     else if (frame is UrlEddystoneFrame)

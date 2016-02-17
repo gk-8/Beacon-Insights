@@ -117,7 +117,7 @@ namespace BeaconInsightsUWP.ViewModels
             {
                 if (beacon.ProximityStatus == Beacon.ProximityStatusEnum.GettingCloser && beacon.BeaconType == Beacon.BeaconTypeEnum.Eddystone
                     && beacon.BeaconFrames.Count > 0 && beacon.BeaconFrames[0] is UrlEddystoneFrame) {
-                    _notificationsService.Notify("http://trackseries.tv");
+                    _notificationsService.Notify((beacon.BeaconFrames[0] as UrlEddystoneFrame).CompleteUrl);
                 }
             }
         }
