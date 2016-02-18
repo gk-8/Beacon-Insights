@@ -17,11 +17,40 @@
             <Controls:HamburgerMenu x:Name="MyHamburgerMenu" SecondarySeparator="Gray">
 
                 <Controls:HamburgerMenu.PrimaryButtons>
-                    <!--  mainpage button  -->
                     <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
                         <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48" Height="48" Symbol="Home" />
-                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Home" />
+                            <SymbolIcon Width="48" Height="48" Symbol="Preview" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Basic info" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo PageType="views:DetailPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="OpenFile" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Detailed info" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo PageType="views:RadarPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="Street" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Radar" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo PageType="views:AdvertisingPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="View" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Advertising" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo PageType="views:NotificationsPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="PostUpdate" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Notifications" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo PageType="views:CloudPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="SyncFolder" />
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Cloud connected" />
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>
                 </Controls:HamburgerMenu.PrimaryButtons>

@@ -189,6 +189,18 @@ namespace UniversalBeaconLibrary.Beacon
             }
         }
 
+        private string _rawPayloadFormattedString;
+        public string RawPayloadFormattedString
+        {
+            get { return _rawPayloadFormattedString; }
+            set
+            {
+                if (_rawPayloadFormattedString == value) return;
+                _rawPayloadFormattedString = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Construct a new Bluetooth beacon based on the received advertisement.
         /// Tries to find out if it's a known type, and then parses the contents accordingly.
@@ -294,11 +306,13 @@ namespace UniversalBeaconLibrary.Beacon
                         {
                             //BeaconFrames[0].Payload = manufacturerDataArray;
                             BeaconFrames[0].Update(beaconFrame);
+                            UpdateRawPayload();
                         }
                         else
                         {
                             //BeaconFrames.Add(new UnknownBeaconFrame(manufacturerDataArray));
                             BeaconFrames.Add(beaconFrame);
+                            UpdateRawPayload();
                         }
                     }
                 }
@@ -360,6 +374,7 @@ namespace UniversalBeaconLibrary.Beacon
                             if (updateFrame)
                             {
                                 BeaconFrames[i].Update(beaconFrame);
+                                UpdateRawPayload();
                                 found = true;
                                 break;  // Don't analyze any other known frames of this beacon
                             }
@@ -368,6 +383,7 @@ namespace UniversalBeaconLibrary.Beacon
                     if (!found)
                     {
                         BeaconFrames.Add(beaconFrame);
+                        UpdateRawPayload();
                     }
                 }
             }
@@ -439,6 +455,20 @@ namespace UniversalBeaconLibrary.Beacon
             }
             else
                 ProximityStatus = ProximityStatusEnum.NotMoving;
+        }
+
+        private void UpdateRawPayload()
+        {
+            string raw = "";
+
+            foreach (var frame in BeaconFrames)
+            {
+                raw += "[Frame " + (BeaconFrames.IndexOf(frame)+1) + "] " + BitConverter.ToString(frame.Payload);
+                if (BeaconFrames.IndexOf(frame) < BeaconFrames.Count - 1)
+                    raw += "\n\n";
+            }
+
+            RawPayloadFormattedString = raw;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

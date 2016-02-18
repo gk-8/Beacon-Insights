@@ -20,6 +20,7 @@
     <converters:BoolToVisibilityConverter x:Name="BoolToVisibilityConverter"/>
     <converters:BluetoothAddressToColorConverter x:Name="BluetoothAddressToColorConverter"/>
     <converters:BluetoothAddressToNameConverter x:Name="BluetoothAddressToNameConverter"/>
+    <converters:NullToVisibilityConverter x:Name="NullToVisibilityConverter"/>
 
     <ResourceDictionary.ThemeDictionaries>
 

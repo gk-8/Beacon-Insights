@@ -30,19 +30,25 @@ namespace BeaconInsightsUWP.ViewModels
         private ObservableCollection<Beacon> _beaconsList;
         public ObservableCollection<Beacon> BeaconsList
         {
-            get
-            {
-                return _beaconsList;
-            }
+            get { return _beaconsList; }
             set
             {
-                if (_filteringUnknownBeacons)
-                    _beaconsList = new ObservableCollection<Beacon>(value.ToList().Where(b => b.BeaconType != Beacon.BeaconTypeEnum.Unknown));
-                else
-                    Set(ref _beaconsList, value);
+                Set(ref _beaconsList, value);
                 base.RaisePropertyChanged();
             }
         }
+
+        private Beacon _selectedBeacon;
+        public Beacon SelectedBeacon
+        {
+            get { return _selectedBeacon; }
+            set
+            {
+                Set(ref _selectedBeacon, value);
+                base.RaisePropertyChanged();
+            }
+        }
+
 
         private string _statusLabel;
         public string StatusLabel
@@ -76,7 +82,7 @@ namespace BeaconInsightsUWP.ViewModels
         {
             _notificationsService = notificationsService;
             _dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-            FilteringUnknownBeacons = false;
+
             // Create the Bluetooth LE watcher from the Windows 10 UWP
             _watcher = new BluetoothLEAdvertisementWatcher { ScanningMode = BluetoothLEScanningMode.Active };
 
@@ -93,11 +99,11 @@ namespace BeaconInsightsUWP.ViewModels
                 {
                     _beaconManager.ReceivedAdvertisement(eventArgs);
                     BeaconsList = _beaconManager.BluetoothBeacons;
-                    foreach (var beacon in BeaconsList)
-                    {
-                        beacon.PropertyChanged -= Beacon_PropertyChanged;
-                        beacon.PropertyChanged += Beacon_PropertyChanged;
-                    }
+                    //foreach (var beacon in BeaconsList)
+                    //{
+                    //    beacon.PropertyChanged -= Beacon_PropertyChanged;
+                    //    beacon.PropertyChanged += Beacon_PropertyChanged;
+                    //}
                 }
                 catch (ArgumentException e)
                 {
@@ -117,7 +123,8 @@ namespace BeaconInsightsUWP.ViewModels
             if (e.PropertyName == "ProximityStatus")
             {
                 if (beacon.ProximityStatus == Beacon.ProximityStatusEnum.GettingCloser && beacon.BeaconType == Beacon.BeaconTypeEnum.Eddystone
-                    && beacon.BeaconFrames.Count > 0 && beacon.BeaconFrames[0] is UrlEddystoneFrame) {
+                    && beacon.BeaconFrames.Count > 0 && beacon.BeaconFrames[0] is UrlEddystoneFrame)
+                {
                     _notificationsService.Notify((beacon.BeaconFrames[0] as UrlEddystoneFrame).CompleteUrl);
                 }
             }
@@ -186,11 +193,6 @@ namespace BeaconInsightsUWP.ViewModels
         public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
             return Task.CompletedTask;
-        }
-
-        public void SwitchFilteringSetting()
-        {
-            FilteringUnknownBeacons = !FilteringUnknownBeacons;
         }
 
         //public void GotoDetailsPage() =>
