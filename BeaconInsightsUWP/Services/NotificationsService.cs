@@ -2,10 +2,11 @@
 using Windows.UI.Notifications;
 using NotificationsExtensions.Toasts; // NotificationsExtensions.Win10
 using Microsoft.QueryStringDotNET; // QueryString.NET
+using BeaconInsightsUWP.Services.Interfaces;
 
 namespace BeaconInsightsUWP.Services
 {
-    public class NotificationsService
+    public class NotificationsService : INotificationsService
     {
         public static NotificationsService Instance { get; }
         static NotificationsService()

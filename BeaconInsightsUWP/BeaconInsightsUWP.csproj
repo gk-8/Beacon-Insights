@@ -103,6 +103,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\Locator.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BluetoothAddressToColorConverter.cs" />
     <Compile Include="Converters\BluetoothAddressToNameConverter.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Models\UnknownBeaconFrame.cs" />
     <Compile Include="Models\UrlEddystoneFrame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\INotificationsService.cs" />
     <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />

@@ -12,7 +12,7 @@ using Windows.UI.Core;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using BeaconInsightsUWP.Services;
+using BeaconInsightsUWP.Services.Interfaces;
 
 namespace BeaconInsightsUWP.ViewModels
 {
@@ -20,7 +20,7 @@ namespace BeaconInsightsUWP.ViewModels
     {
         private ResourceLoader _resourceLoader;
         private CoreDispatcher _dispatcher;
-        private NotificationsService _notificationsService = NotificationsService.Instance;
+        private INotificationsService _notificationsService;
         private bool _restartingBeaconWatch;
 
         private readonly BluetoothLEAdvertisementWatcher _watcher;
@@ -72,8 +72,9 @@ namespace BeaconInsightsUWP.ViewModels
             }
         }
 
-        public MainPageViewModel()
+        public MainPageViewModel(INotificationsService notificationsService)
         {
+            _notificationsService = notificationsService;
             _dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             FilteringUnknownBeacons = false;
             // Create the Bluetooth LE watcher from the Windows 10 UWP

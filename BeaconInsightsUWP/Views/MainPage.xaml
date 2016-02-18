@@ -8,7 +8,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:BeaconInsightsUWP.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:BeaconInsightsUWP.ViewModels" mc:Ignorable="d">
+      mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="BeaconListViewItemTemplate">
             <Grid Height="100">
@@ -37,7 +37,7 @@
     </Page.Resources>
 
     <Page.DataContext>
-        <vm:MainPageViewModel x:Name="ViewModel" />
+        <Binding Path="MainPageViewModel" Source="{StaticResource Locator}"/>
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -79,8 +79,8 @@
         <!--  page header  -->
         <controls:PageHeader Content="{Binding StatusLabel}">
             <controls:PageHeader.PrimaryCommands>
-                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Filter" Label="Filter unknown beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
-                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Clear" Label="Show all beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <!--<AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Filter" Label="Filter unknown beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
+                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Clear" Label="Show all beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}}" />-->
             </controls:PageHeader.PrimaryCommands>
             <controls:PageHeader.SecondaryCommands>
                 <!--<AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
