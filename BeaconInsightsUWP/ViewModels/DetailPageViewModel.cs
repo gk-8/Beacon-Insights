@@ -1,31 +1,59 @@
+using BeaconInsightsUWP.Services.Interfaces;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
-using Windows.UI.Xaml.Navigation;
+using UniversalBeaconLibrary.Beacon;
 
 namespace BeaconInsightsUWP.ViewModels
 {
     public class DetailPageViewModel : ViewModelBase
     {
-        public DetailPageViewModel()
+        private IBeaconManagementService _beaconManagementService;
+
+        private ObservableCollection<Beacon> _beaconsList;
+        public ObservableCollection<Beacon> BeaconsList
         {
+            get { return _beaconsList; }
+            set
+            {
+                Set(ref _beaconsList, value);
+                base.RaisePropertyChanged();
+            }
         }
 
-        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        private Beacon _selectedBeacon;
+        public Beacon SelectedBeacon
         {
-            return Task.CompletedTask;
+            get { return _selectedBeacon; }
+            set
+            {
+                Set(ref _selectedBeacon, value);
+                base.RaisePropertyChanged();
+            }
         }
 
-        public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
+
+        private string _statusLabel;
+        public string StatusLabel
         {
-            return Task.CompletedTask;
+            get
+            {
+                return _statusLabel;
+            }
+            set
+            {
+                Set(ref _statusLabel, value);
+                base.RaisePropertyChanged();
+            }
         }
 
-        public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        public DetailPageViewModel(IBeaconManagementService beaconManagementService)
         {
-            return Task.CompletedTask;
+            _beaconManagementService = beaconManagementService;
+            BeaconsList = _beaconManagementService.GetBeaconsList();
+            StatusLabel = _beaconManagementService.GetStatusLabel();
         }
     }
 }
-

@@ -113,7 +113,7 @@
                     <Run Text="{Binding SelectedBeacon.BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="1" Text="{Binding SelectedBeacon.RawPayloadFormattedString}" Margin="60,20,60,0" TextWrapping="Wrap" 
-                           HorizontalAlignment="Center" FontSize="24" />
+                           HorizontalAlignment="Center" FontSize="24" TextAlignment="Center" />
             </Grid>
         </Grid>
 
