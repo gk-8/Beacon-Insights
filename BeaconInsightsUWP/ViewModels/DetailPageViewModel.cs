@@ -1,9 +1,6 @@
 using BeaconInsightsUWP.Services.Interfaces;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Template10.Mvvm;
-using Template10.Services.NavigationService;
 using UniversalBeaconLibrary.Beacon;
 
 namespace BeaconInsightsUWP.ViewModels

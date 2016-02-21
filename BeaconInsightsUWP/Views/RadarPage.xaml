@@ -51,15 +51,80 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <!--  header  -->
-        <controls:PageHeader Frame="{x:Bind Frame}" Text="Ranging beacons">
-            <Interactivity:Interaction.Behaviors>
-                <Behaviors:EllipsisBehavior Visibility="Auto" />
-            </Interactivity:Interaction.Behaviors>
+        <!--  page header  -->
+        <controls:PageHeader Content="{Binding StatusLabel}">
+            <controls:PageHeader.PrimaryCommands>
+                <!--<AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Filter" Label="Filter unknown beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
+                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Clear" Label="Show all beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}}" />-->
+            </controls:PageHeader.PrimaryCommands>
+            <controls:PageHeader.SecondaryCommands>
+                <!--<AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />-->
+            </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
 
-        <!--  content  -->
+        <!--  page content  -->
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <ListView Name="BeaconsListView" ItemTemplate="{StaticResource BeaconDistanceDataListViewItemTemplate}" 
+                      ItemsSource="{Binding BeaconsList}" SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.ColumnSpan="3" Fill="Azure"/>
+                <Rectangle Grid.Column="1" Fill="LightGray"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Fill="Azure"/>
+                <Rectangle Grid.Row="2" Grid.ColumnSpan="3" Fill="PaleTurquoise" Opacity="0.5"/>
+                <Rectangle Grid.Row="3" Grid.ColumnSpan="3" Fill="PaleTurquoise"/>
+                <Grid Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,8,0">
+                    <Ellipse Height="50" Width="50" Fill="{ThemeResource CustomColorBrush}" />
+                    <TextBlock Text="{Binding ImmediateDistanceLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="SemiBold" FontSize="18" />
+                </Grid>
+                <Grid Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,8,0">
+                    <Ellipse Height="50" Width="50" Fill="{ThemeResource CustomColorBrush}" />
+                    <TextBlock Text="{Binding NearDistanceLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="SemiBold" FontSize="18" />
+                </Grid>
+                <Grid Grid.Column="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionColumnConverter}, ConverterParameter=256098965555991}"
+                      Grid.Row="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionRowConverter}, ConverterParameter=256098965555991}"
+                      Visibility="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionVisibilityConverter}, ConverterParameter=256098965555991}">
+                    <!--Ice beacon-->
+                    <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
+                    <Rectangle Fill="LightSkyBlue" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+                </Grid>
+                <Grid Grid.Column="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionColumnConverter}, ConverterParameter=259787379618397}"
+                      Grid.Row="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionRowConverter}, ConverterParameter=259787379618397}"
+                      Visibility="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionVisibilityConverter}, ConverterParameter=259787379618397}">
+                    <!--Mint beacon-->
+                    <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
+                    <Rectangle Fill="Aquamarine" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+                </Grid>
+                <Grid Grid.Column="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionColumnConverter}, ConverterParameter=243772591070564}"
+                      Grid.Row="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionRowConverter}, ConverterParameter=243772591070564}"
+                      Visibility="{Binding RadarBeaconsList, Converter={StaticResource RadarPositionVisibilityConverter}, ConverterParameter=243772591070564}">
+                    <!--Blueberry beacon-->
+                    <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
+                    <Rectangle Fill="Indigo" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+                </Grid>
+            </Grid>
         </Grid>
 
     </Grid>

@@ -21,6 +21,74 @@
     <converters:BluetoothAddressToColorConverter x:Name="BluetoothAddressToColorConverter"/>
     <converters:BluetoothAddressToNameConverter x:Name="BluetoothAddressToNameConverter"/>
     <converters:NullToVisibilityConverter x:Name="NullToVisibilityConverter"/>
+    <converters:TimeSincePowerUpConverter x:Name="TimeSincePowerUpConverter"/>
+    <converters:RadarPositionVisibilityConverter x:Name="RadarPositionVisibilityConverter"/>
+    <converters:RadarPositionRowConverter x:Name="RadarPositionRowConverter"/>
+    <converters:RadarPositionColumnConverter x:Name="RadarPositionColumnConverter"/>
+
+    <!--General DataTemplates-->
+    <DataTemplate x:Key="BeaconDataFramesCountListViewItemTemplate">
+        <Grid Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
+            <Rectangle Fill="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+            <Grid Grid.Column="1" Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
+                <TextBlock Grid.Row="2" FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap">
+                        <Run Text="Data frames: "/>
+                        <Run Text="{Binding BeaconFrames.Count}"/>
+                </TextBlock>
+                <TextBlock Grid.Row="3" FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BeaconType}"/>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BeaconDistanceDataListViewItemTemplate">
+        <Grid Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
+            <Rectangle Fill="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+            <Grid Grid.Column="1" Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Text="{Binding ProximityRange}"/>
+                    <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding ProximityStatus}" Margin="5,0,0,0"/>
+                </StackPanel>
+                <TextBlock Grid.Row="3" FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BeaconType}"/>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
+    <Style TargetType="TextBlock" x:Key="FramePropertyTitleStyle">
+        <Setter Property="Foreground" Value="{ThemeResource CustomColor}"/>
+        <!--<Setter Property="FontWeight" Value="Normal" />-->
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Margin" Value="16,0,0,0"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="FramePropertyValueStyle">
+        <Setter Property="Foreground" Value="{ThemeResource TextBoxDisabledForegroundThemeBrush}"/>
+        <Setter Property="FontWeight" Value="SemiLight" />
+        <Setter Property="FontSize" Value="20" />
+    </Style>
 
     <ResourceDictionary.ThemeDictionaries>
 

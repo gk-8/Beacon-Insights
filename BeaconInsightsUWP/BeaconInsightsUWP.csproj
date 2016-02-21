@@ -103,11 +103,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\FrameTemplateSelector.cs" />
     <Compile Include="Base\Locator.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BluetoothAddressToColorConverter.cs" />
     <Compile Include="Converters\BluetoothAddressToNameConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\RadarPositionConverters.cs" />
+    <Compile Include="Converters\TimeSincePowerUpConverter.cs" />
     <Compile Include="Converters\VisibleWhenDesktop.cs" />
     <Compile Include="Models\Annotations.cs" />
     <Compile Include="Models\AppConfig.cs" />

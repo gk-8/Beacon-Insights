@@ -7,39 +7,154 @@
       xmlns:controls="using:Template10.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:BeaconInsightsUWP.Views"
+      xmlns:base="using:BeaconInsightsUWP.Base"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-
-    <Page.Resources>
-        <DataTemplate x:Key="BeaconListViewItemTemplate">
-            <Grid Height="100">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
-                <Rectangle Fill="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
-                <Grid Grid.Column="1" Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="5"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Text="{Binding ProximityRange}"/>
-                        <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding ProximityStatus}" Margin="5,0,0,0"/>
-                    </StackPanel>
-                    <TextBlock Grid.Row="3" FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BeaconType}"/>
-                </Grid>
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>
 
     <Page.DataContext>
         <Binding Path="DetailPageViewModel" Source="{StaticResource Locator}"/>
     </Page.DataContext>
+
+    <Page.Resources>
+        <DataTemplate x:Key="UidEddystoneFrameTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="3" Background="{ThemeResource CustomColorBrush}">
+                    <TextBlock Text="Uid Eddystone Frame" Foreground="{ThemeResource ContrastColorBrush}" FontSize="24" Margin="8, 8"/>
+                </Grid>
+                <TextBlock Grid.Row="2" Text="Ranging data:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding RangingData}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="4" Text="Namespace ID:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding NamespaceIdAsNumber}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="6" Text="Instance ID:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding InstanceIdAsNumber}" Style="{StaticResource FramePropertyValueStyle}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="UrlEddystoneFrameTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="3" Background="{ThemeResource CustomColorBrush}">
+                    <TextBlock Text="Url Eddystone Frame" Foreground="{ThemeResource ContrastColorBrush}" FontSize="24" Margin="8, 8"/>
+                </Grid>
+                <TextBlock Grid.Row="2" Text="Ranging data:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding RangingData}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="4" Text="Complete URL:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding CompleteUrl}" Style="{StaticResource FramePropertyValueStyle}" />
+            </Grid>
+        </DataTemplate>
+
+        <!-- Telemtry data -->
+        <DataTemplate x:Key="TlmEddystoneFrameTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="3" Background="{ThemeResource CustomColorBrush}">
+                    <TextBlock Text="Tlm Eddystone Frame" Foreground="{ThemeResource ContrastColorBrush}" FontSize="24" Margin="8, 8"/>
+                </Grid>
+                <TextBlock Grid.Row="2" Text="Version:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Version}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="4" Text="Battery (mV):" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding BatteryInMilliV}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="6" Text="Temperature (Celsius):" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding TemperatureInC}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="8" Text="Advertisement frames count:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding AdvertisementFrameCount}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="10" Text="Time since power up (days):" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="10" Grid.Column="2" Text="{Binding TimeSincePowerUp, Converter={StaticResource TimeSincePowerUpConverter}, ConverterParameter=Days}" Style="{StaticResource FramePropertyValueStyle}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ProximityBeaconFrameTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="3" Background="{ThemeResource CustomColorBrush}">
+                    <TextBlock Text="Proximity iBeacon Frame" Foreground="{ThemeResource ContrastColorBrush}" FontSize="24" Margin="8, 8"/>
+                </Grid>
+                <TextBlock Grid.Row="2" Text="UUID:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding UuidAsString}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="4" Text="Major:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Major}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="6" Text="Minor:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding Minor}" Style="{StaticResource FramePropertyValueStyle}" />
+                <TextBlock Grid.Row="8" Text="TxPower:" Style="{StaticResource FramePropertyTitleStyle}" />
+                <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding TxPower}" Style="{StaticResource FramePropertyValueStyle}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="UnknownBeaconFrameTemplate">
+            <Grid>
+                <TextBlock Text="Unknown Frame Template"/>
+            </Grid>
+        </DataTemplate>
+
+        <base:FrameTemplateSelector x:Key="FrameTemplateSelector"
+                                    UrlEddystoneFrameTemplate="{StaticResource UrlEddystoneFrameTemplate}"
+                                    TlmEddystoneFrameTemplate="{StaticResource TlmEddystoneFrameTemplate}"
+                                    UidEddystoneFrameTemplate="{StaticResource UidEddystoneFrameTemplate}"
+                                    ProximityBeaconFrameTemplate="{StaticResource ProximityBeaconFrameTemplate}"
+                                    UnknownBeaconFrameTemplate="{StaticResource UnknownBeaconFrameTemplate}"/>
+
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -93,10 +208,10 @@
         <!--  page content  -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <ListView Name="BeaconsListView" ItemTemplate="{StaticResource BeaconListViewItemTemplate}" 
+            <ListView Name="BeaconsListView" ItemTemplate="{StaticResource BeaconDataFramesCountListViewItemTemplate}" 
                       ItemsSource="{Binding BeaconsList}" SelectedItem="{Binding SelectedBeacon, Mode=TwoWay}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -105,7 +220,27 @@
                 </ListView.ItemContainerStyle>
             </ListView>
             <Grid Grid.Column="1" Visibility="{Binding SelectedBeacon,Converter={StaticResource NullToVisibilityConverter}}">
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="32" FontWeight="SemiBold" Foreground="Teal" Margin="0,20,0,0" HorizontalAlignment="Center" TextWrapping="WrapWholeWords">
+                    <Run Text="Parsed payload of beacon"/>
+                    <Run Text="{Binding SelectedBeacon.BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
+                </TextBlock>
+                <ListView Grid.Row="1" SelectionMode="None" Margin="40, 10"
+                          ItemsSource="{Binding SelectedBeacon.BeaconFrames, Mode=OneWay}"
+                          ItemTemplateSelector="{StaticResource FrameTemplateSelector}"
+                          HorizontalContentAlignment="Stretch" IsHitTestVisible="False">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0,0,0,0"/>
+                            <Setter Property="Padding" Value="0,0,0,0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
             </Grid>
         </Grid>
 

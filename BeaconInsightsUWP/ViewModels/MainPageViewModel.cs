@@ -1,7 +1,4 @@
 using Template10.Mvvm;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Template10.Services.NavigationService;
 using System.Collections.ObjectModel;
 using UniversalBeaconLibrary.Beacon;
 using BeaconInsightsUWP.Services.Interfaces;
