@@ -24,6 +24,7 @@ namespace BeaconInsightsUWP.Base
             //Services
             container.RegisterType<INotificationsService, NotificationsService>();
             container.RegisterType<IBeaconManagementService, BeaconManagementService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAzureEventHubService, AzureEventHubService>(new ContainerControlledLifetimeManager());
         }
         public MainPageViewModel MainPageViewModel
         {

@@ -17,17 +17,17 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License. 
 
+using BeaconInsightsUWP.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Devices.Bluetooth.Advertisement;
-using UniversalBeaconLibrary.Annotations;
-using System.Diagnostics;
 using System.Text;
-using BeaconInsightsUWP.Models;
+using UniversalBeaconLibrary.Annotations;
+using Windows.Devices.Bluetooth.Advertisement;
 
 namespace UniversalBeaconLibrary.Beacon
 {
@@ -421,7 +421,6 @@ namespace UniversalBeaconLibrary.Beacon
 
                 CalculateProximityRange();
             }
-            else return;
         }
 
         private void CalculateProximityRange()
@@ -463,13 +462,70 @@ namespace UniversalBeaconLibrary.Beacon
 
             foreach (var frame in BeaconFrames)
             {
-                raw += "[Frame " + (BeaconFrames.IndexOf(frame)+1) + "] " + BitConverter.ToString(frame.Payload);
+                raw += "[Frame " + (BeaconFrames.IndexOf(frame) + 1) + "] " + BitConverter.ToString(frame.Payload);
                 if (BeaconFrames.IndexOf(frame) < BeaconFrames.Count - 1)
                     raw += "\n\n";
             }
 
             RawPayloadFormattedString = raw;
         }
+
+        public UrlEddystoneFrame GetUrlEddystoneFrame()
+        {
+            UrlEddystoneFrame frame = null;
+
+            foreach (BeaconFrameBase f in BeaconFrames)
+            {
+                if (f is UrlEddystoneFrame)
+                    frame = f as UrlEddystoneFrame;
+            }
+
+            return frame;
+        }
+
+        public TlmEddystoneFrame GetTlmEddystoneFrame()
+        {
+            TlmEddystoneFrame frame = null;
+
+            foreach (BeaconFrameBase f in BeaconFrames)
+            {
+                if (f is TlmEddystoneFrame)
+                    frame = f as TlmEddystoneFrame;
+            }
+
+            return frame;
+        }
+
+        public UidEddystoneFrame GetUidEddystoneFrame()
+        {
+            UidEddystoneFrame frame = null;
+
+            foreach (BeaconFrameBase f in BeaconFrames)
+            {
+                if (f is UidEddystoneFrame)
+                    frame = f as UidEddystoneFrame;
+            }
+
+            return frame;
+        }
+
+        public ProximityBeaconFrame GetProximityFrame()
+        {
+            ProximityBeaconFrame frame = null;
+
+            foreach (BeaconFrameBase f in BeaconFrames)
+            {
+                if (f is ProximityBeaconFrame)
+                    frame = f as ProximityBeaconFrame;
+            }
+
+            return frame;
+        }
+
+        public float GetTemperature() {
+            return GetTlmEddystoneFrame() != null ? GetTlmEddystoneFrame().TemperatureInC : 0;
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

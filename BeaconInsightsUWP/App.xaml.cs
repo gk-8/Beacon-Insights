@@ -1,10 +1,10 @@
-using System;
-using Windows.UI.Xaml;
-using System.Threading.Tasks;
 using BeaconInsightsUWP.Services;
-using Windows.ApplicationModel.Activation;
 using Microsoft.QueryStringDotNET;
+using System;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using Windows.System;
+using Windows.UI.Xaml;
 
 namespace BeaconInsightsUWP
 {
@@ -56,10 +56,17 @@ namespace BeaconInsightsUWP
                 // See what action is being requested 
                 switch (arguments["action"])
                 {
-                    // Open the image
                     case "openurl":
                         var url = arguments["url"];
                         await Launcher.LaunchUriAsync(new Uri(url));
+                        break;
+                    case "showtemperature":
+                        var temperature = arguments["temperature"];
+                        NavigationService.Navigate(typeof(Views.NotificationsPage), temperature);
+                        break;
+                    case "gettingfar":
+                        var distance = arguments["distance"];
+                        NavigationService.Navigate(typeof(Views.NotificationsPage), distance);
                         break;
                 }
             }

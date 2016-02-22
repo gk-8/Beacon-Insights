@@ -17,7 +17,7 @@ namespace BeaconInsightsUWP.Services
         private CoreDispatcher _dispatcher;
         private bool _restartingBeaconWatch;
 
-        public readonly BluetoothLEAdvertisementWatcher _watcher;
+        private readonly BluetoothLEAdvertisementWatcher _watcher;
 
         private readonly BeaconManager _beaconManager;
 
@@ -89,11 +89,6 @@ namespace BeaconInsightsUWP.Services
                 {
                     _beaconManager.ReceivedAdvertisement(eventArgs);
                     BeaconsList = _beaconManager.BluetoothBeacons;
-                    //foreach (var beacon in BeaconsList)
-                    //{
-                    //    beacon.PropertyChanged -= Beacon_PropertyChanged;
-                    //    beacon.PropertyChanged += Beacon_PropertyChanged;
-                    //}
                 }
                 catch (ArgumentException e)
                 {
@@ -106,19 +101,6 @@ namespace BeaconInsightsUWP.Services
                 }
             });
         }
-
-        //private void Beacon_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    Beacon beacon = (sender as Beacon);
-        //    if (e.PropertyName == "ProximityStatus")
-        //    {
-        //        if (beacon.ProximityStatus == Beacon.ProximityStatusEnum.GettingCloser && beacon.BeaconType == Beacon.BeaconTypeEnum.Eddystone
-        //            && beacon.BeaconFrames.Count > 0 && beacon.BeaconFrames[0] is UrlEddystoneFrame)
-        //        {
-        //            _notificationsService.Notify((beacon.BeaconFrames[0] as UrlEddystoneFrame).CompleteUrl);
-        //        }
-        //    }
-        //}
 
         private void WatcherOnStopped(BluetoothLEAdvertisementWatcher sender, BluetoothLEAdvertisementWatcherStoppedEventArgs args)
         {
@@ -165,6 +147,11 @@ namespace BeaconInsightsUWP.Services
         public string GetStatusLabel()
         {
             return StatusLabel;
+        }
+
+        public BluetoothLEAdvertisementWatcher GetWatcher()
+        {
+            return _watcher;
         }
     }
 }

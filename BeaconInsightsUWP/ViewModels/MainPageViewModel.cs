@@ -1,7 +1,7 @@
-using Template10.Mvvm;
-using System.Collections.ObjectModel;
-using UniversalBeaconLibrary.Beacon;
 using BeaconInsightsUWP.Services.Interfaces;
+using System.Collections.ObjectModel;
+using Template10.Mvvm;
+using UniversalBeaconLibrary.Beacon;
 
 namespace BeaconInsightsUWP.ViewModels
 {

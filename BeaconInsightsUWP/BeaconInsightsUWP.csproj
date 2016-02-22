@@ -119,13 +119,16 @@
     <Compile Include="Models\BeaconFrameBase.cs" />
     <Compile Include="Models\BeaconFrameHelper.cs" />
     <Compile Include="Models\BeaconManager.cs" />
+    <Compile Include="Models\BeaconMessage.cs" />
     <Compile Include="Models\ProximityBeaconFrame.cs" />
     <Compile Include="Models\TlmEddystoneFrame.cs" />
     <Compile Include="Models\UidEddystoneFrame.cs" />
     <Compile Include="Models\UnknownBeaconFrame.cs" />
     <Compile Include="Models\UrlEddystoneFrame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AzureEventHubService.cs" />
     <Compile Include="Services\BeaconManagementService.cs" />
+    <Compile Include="Services\Interfaces\IAzureEventHubService.cs" />
     <Compile Include="Services\Interfaces\IBeaconManagementService.cs" />
     <Compile Include="Services\Interfaces\INotificationsService.cs" />
     <Compile Include="Services\NotificationsService.cs" />

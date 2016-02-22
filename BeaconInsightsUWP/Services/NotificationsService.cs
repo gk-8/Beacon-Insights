@@ -1,30 +1,27 @@
-﻿using System;
-using Windows.UI.Notifications;
-using NotificationsExtensions.Toasts; // NotificationsExtensions.Win10
+﻿using BeaconInsightsUWP.Services.Interfaces;
 using Microsoft.QueryStringDotNET; // QueryString.NET
-using BeaconInsightsUWP.Services.Interfaces;
+using NotificationsExtensions.Toasts; // NotificationsExtensions.Win10
+using System;
+using System.Text;
+using Windows.UI.Notifications;
 
 namespace BeaconInsightsUWP.Services
 {
     public class NotificationsService : INotificationsService
     {
-        public static NotificationsService Instance { get; }
-        static NotificationsService()
-        {
-            // implement singleton pattern
-            Instance = Instance ?? new NotificationsService();
-        }
-        public void Notify(string url)
+        private ToastContent _toastContent;
+
+        public void NotifyWithUrl(string title, string message, string url)
         {
             ToastVisual visual = new ToastVisual()
             {
                 TitleText = new ToastText()
                 {
-                    Text = "Welcome home!"
+                    Text = title
                 },
                 BodyTextLine1 = new ToastText()
                 {
-                    Text = "What TV-shows would you wanna watch today?"
+                    Text = message
                 },
                 AppLogoOverride = new ToastAppLogo()
                 {
@@ -49,7 +46,7 @@ namespace BeaconInsightsUWP.Services
                 }
             };
 
-            ToastContent toastContent = new ToastContent()
+            _toastContent = new ToastContent()
             {
                 Visual = visual,
                 Actions = actions,
@@ -57,15 +54,77 @@ namespace BeaconInsightsUWP.Services
                 // Arguments when the user taps body of toast
                 Launch = new QueryString()
                 {
-                    { "action", "viewConversation" },
+                    { "action", "openurl" },
                     { "url", url }
 
                 }.ToString()
             };
+            SendNotification();
+        }
 
-            // And create the toast notification
-            var toast = new ToastNotification(toastContent.GetXml());
-            toast.ExpirationTime = DateTime.Now.AddDays(2);
+        public void NotifyWithTemperature(string title, string message, float temperature)
+        {
+            StringBuilder sb = new StringBuilder();
+            ToastVisual visual = new ToastVisual()
+            {
+                TitleText = new ToastText()
+                {
+                    Text = title
+                },
+                BodyTextLine1 = new ToastText()
+                {
+                    Text = sb.AppendFormat(message, temperature).ToString()
+                }
+            };
+
+            _toastContent = new ToastContent()
+            {
+                Visual = visual,
+
+                // Arguments when the user taps body of toast
+                Launch = new QueryString()
+                {
+                    { "action", "showtemperature" },
+                    { "temperature", temperature.ToString() }
+
+                }.ToString()
+            };
+            SendNotification();
+        }
+
+        public void NotifyWithDistance(string title, string message, double distance)
+        {
+            ToastVisual visual = new ToastVisual()
+            {
+                TitleText = new ToastText()
+                {
+                    Text = title
+                },
+                BodyTextLine1 = new ToastText()
+                {
+                    Text = message
+                }
+            };
+
+            _toastContent = new ToastContent()
+            {
+                Visual = visual,
+
+                // Arguments when the user taps body of toast
+                Launch = new QueryString()
+                {
+                    { "action", "gettingfar" },
+                    { "distance", distance.ToString() }
+
+                }.ToString()
+            };
+            SendNotification();
+        }
+
+        private void SendNotification() {
+            // Create the toast notification
+            var toast = new ToastNotification(_toastContent.GetXml());
+            toast.ExpirationTime = DateTime.Now.AddDays(1);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
     }

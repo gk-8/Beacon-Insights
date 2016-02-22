@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

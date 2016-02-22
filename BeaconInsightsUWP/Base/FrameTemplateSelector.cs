@@ -1,6 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using UniversalBeaconLibrary.Beacon;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using UniversalBeaconLibrary.Beacon;
 
 namespace BeaconInsightsUWP.Base
 {

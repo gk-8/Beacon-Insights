@@ -1,4 +1,3 @@
-using BeaconInsightsUWP.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
