@@ -1,4 +1,5 @@
 ﻿using System;
+using UniversalBeaconLibrary.Beacon;
 using Windows.UI.Xaml.Data;
 
 namespace BeaconInsightsUWP.Converters
@@ -10,7 +11,8 @@ namespace BeaconInsightsUWP.Converters
             var name = "Unknown";
             if (value != null)
             {
-                var bluetoothAddress = value.ToString();
+                var beacon = value as Beacon;
+                var bluetoothAddress = beacon.BluetoothAddress.ToString();
                 switch (bluetoothAddress)
                 {
                     case "259787379618397":
@@ -24,6 +26,10 @@ namespace BeaconInsightsUWP.Converters
                     case "243772591070564":
                         //Purple
                         name = "Blueberry pie";
+                        break;
+                    default:
+                        if (beacon.BeaconType != Beacon.BeaconTypeEnum.Unknown)
+                            name = "Clockwork orange";
                         break;
                 }
             }

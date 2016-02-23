@@ -85,7 +85,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="32" FontWeight="SemiBold" Foreground="{ThemeResource CustomColorBrush}" Margin="0,20,0,0" HorizontalAlignment="Center" TextWrapping="WrapWholeWords">
                     <Run Text="Messages content from beacon"/>
-                    <Run Text="{Binding SelectedBeacon.BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
+                    <Run Text="{Binding SelectedBeacon, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
                 </TextBlock>
                 <Grid Grid.Row="1" Margin="40, 10">
                     <Grid.RowDefinitions>

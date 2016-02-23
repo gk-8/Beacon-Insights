@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using Template10.Mvvm;
 using UniversalBeaconLibrary.Beacon;
 using Windows.ApplicationModel.Resources;
@@ -171,17 +172,20 @@ namespace BeaconInsightsUWP.Services
 
         public void SetAdvertisingPayload(Beacon.BeaconTypeEnum protocol)
         {
-            var writer = new DataWriter();
-            UInt16 uuidData = 0x1234;
-            writer.WriteUInt16(uuidData);
+            if (protocol == Beacon.BeaconTypeEnum.iBeacon)
+            {
+                var writer = new DataWriter();
+                var payload = new byte[] { 0x02, 0x15, 0x02, 0x15, 0x0A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0xC2 };
+                foreach (byte b in payload)
+                    writer.WriteByte(b);
 
-            var manufacturerData = new BluetoothLEManufacturerData();
-            //manufacturerData.CompanyId = 0x0006; // Microsoft
-            manufacturerData.CompanyId = 0x4C00; // iBeacon
-            manufacturerData.Data = writer.DetachBuffer();
+                var manufacturerData = new BluetoothLEManufacturerData();
+                manufacturerData.CompanyId = 0x004C; // iBeacon
+                manufacturerData.Data = writer.DetachBuffer();
 
-            _publisher.Advertisement.ManufacturerData.Clear();
-            _publisher.Advertisement.ManufacturerData.Add(manufacturerData);
+                _publisher.Advertisement.ManufacturerData.Clear();
+                _publisher.Advertisement.ManufacturerData.Add(manufacturerData); 
+            }
         }
     }
 }

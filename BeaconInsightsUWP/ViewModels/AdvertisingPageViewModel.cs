@@ -36,6 +36,7 @@ namespace BeaconInsightsUWP.ViewModels
         {
             _beaconManagementService = beaconManagementService;
 
+            SelectedProtocol = Beacon.BeaconTypeEnum.iBeacon;
             _beaconManagementService.SetAdvertisingPayload(SelectedProtocol);
             _beaconManagementService.StartAdvertising();
         }

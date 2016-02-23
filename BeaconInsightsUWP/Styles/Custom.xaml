@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
-            <Rectangle Fill="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+            <Rectangle Fill="{Binding Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
             <Grid Grid.Column="1" Padding="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -43,7 +43,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
+                <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding Converter={StaticResource BluetoothAddressToNameConverter}}"/>
                 <TextBlock Grid.Row="2" FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap">
                         <Run Text="Data frames: "/>
                         <Run Text="{Binding BeaconFrames.Count}"/>
@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8" Source="ms-appx:///Assets/beacon_black.png"/>
-            <Rectangle Fill="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
+            <Rectangle Fill="{Binding Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" RadiusX="5" RadiusY="5"/>
             <Grid Grid.Column="1" Padding="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -68,7 +68,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
+                <TextBlock FontSize="18" Foreground="Black" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding Converter={StaticResource BluetoothAddressToNameConverter}}"/>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Text="{Binding ProximityRange}"/>
                     <TextBlock FontSize="14" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding ProximityStatus}" Margin="5,0,0,0"/>

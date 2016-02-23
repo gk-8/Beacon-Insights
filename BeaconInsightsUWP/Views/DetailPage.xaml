@@ -226,7 +226,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="32" FontWeight="SemiBold" Foreground="Teal" Margin="0,20,0,0" HorizontalAlignment="Center" TextWrapping="WrapWholeWords">
                     <Run Text="Parsed payload of beacon"/>
-                    <Run Text="{Binding SelectedBeacon.BluetoothAddress, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
+                    <Run Text="{Binding SelectedBeacon, Converter={StaticResource BluetoothAddressToNameConverter}}"/>
                 </TextBlock>
                 <ListView Grid.Row="1" SelectionMode="None" Margin="40, 10"
                           ItemsSource="{Binding SelectedBeacon.BeaconFrames, Mode=OneWay}"

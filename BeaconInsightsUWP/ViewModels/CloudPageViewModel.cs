@@ -83,7 +83,8 @@ namespace BeaconInsightsUWP.ViewModels
                     if (beacon.BeaconType != Beacon.BeaconTypeEnum.Unknown)
                     {
                         BeaconMessage bm = new BeaconMessage(beacon);
-                        bm.Device = "GorkmaSP3";
+                        if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile") bm.Device = "NL635Gk_8";
+                        else bm.Device = "GorkmaSP3";
                         _azureEventHubService.SendMessage(JsonConvert.SerializeObject(bm));
                         if (SelectedBeacon == beacon)
                             SelectedBeaconMessage = bm;
