@@ -26,6 +26,28 @@ namespace BeaconInsightsUWP.ViewModels
             }
         }
 
+        private Beacon _selectedBeacon;
+        public Beacon SelectedBeacon
+        {
+            get { return _selectedBeacon; }
+            set
+            {
+                Set(ref _selectedBeacon, value);
+                base.RaisePropertyChanged();
+            }
+        }
+
+        private BeaconMessage _selectedBeaconMessage;
+        public BeaconMessage SelectedBeaconMessage
+        {
+            get { return _selectedBeaconMessage; }
+            set
+            {
+                Set(ref _selectedBeaconMessage, value);
+                base.RaisePropertyChanged();
+            }
+        }
+
 
         private string _statusLabel;
         public string StatusLabel
@@ -63,7 +85,11 @@ namespace BeaconInsightsUWP.ViewModels
                         BeaconMessage bm = new BeaconMessage(beacon);
                         bm.Device = "GorkmaSP3";
                         _azureEventHubService.SendMessage(JsonConvert.SerializeObject(bm));
+                        if (SelectedBeacon == beacon)
+                            SelectedBeaconMessage = bm;
                     }
+                    else if (SelectedBeacon == beacon)
+                        SelectedBeaconMessage = null;
                 }
             }
             catch (Exception)

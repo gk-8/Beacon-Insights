@@ -25,6 +25,7 @@
     <converters:RadarPositionVisibilityConverter x:Name="RadarPositionVisibilityConverter"/>
     <converters:RadarPositionRowConverter x:Name="RadarPositionRowConverter"/>
     <converters:RadarPositionColumnConverter x:Name="RadarPositionColumnConverter"/>
+    <converters:HeigthMinusMarginConverter x:Name="HeigthMinusMarginConverter"/>
 
     <!--General DataTemplates-->
     <DataTemplate x:Key="BeaconDataFramesCountListViewItemTemplate">
@@ -79,7 +80,6 @@
 
     <Style TargetType="TextBlock" x:Key="FramePropertyTitleStyle">
         <Setter Property="Foreground" Value="{ThemeResource CustomColor}"/>
-        <!--<Setter Property="FontWeight" Value="Normal" />-->
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Margin" Value="16,0,0,0"/>
     </Style>

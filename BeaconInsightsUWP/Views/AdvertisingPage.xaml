@@ -59,6 +59,34 @@
 
         <!--  content  -->
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource FramePropertyTitleStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap">
+                    <Run Text="Broadcasting " />
+                    <Run Text="{Binding SelectedProtocol}" />
+                    <Run Text=" payload" />
+                </TextBlock>
+                <TextBlock Grid.Row="1" Text="{Binding RawPayloadBroadcasted}" Style="{StaticResource FramePropertyValueStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid Grid.Row="2">
+                    <Rectangle Name="BeaconBackgroundRect" Fill="Teal" Opacity="0.61" Margin="0, 60" Width="{Binding ElementName=BeaconBackgroundRect, Path=ActualHeight}" RadiusX="25" RadiusY="25"/>
+                    <Image Height="{Binding ElementName=BeaconBackgroundRect, Path=ActualHeight, Converter={StaticResource HeigthMinusMarginConverter}, ConverterParameter=8}" Source="ms-appx:///Assets/beacon_white.png"/>
+                    <!--<Rectangle Name="BeaconBackgroundRect" Fill="{Binding BluetoothAddress, Converter={StaticResource BluetoothAddressToColorConverter}}" Opacity="0.32" Margin="0, 60" Width="{Binding Height, ElementName=BeaconBackgroundRect}" RadiusX="25" RadiusY="25"/>-->
+                </Grid>
+            </Grid>
         </Grid>
 
     </Grid>

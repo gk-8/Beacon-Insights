@@ -7,6 +7,7 @@ using UniversalBeaconLibrary.Beacon;
 using Windows.ApplicationModel.Resources;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.Advertisement;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 
 namespace BeaconInsightsUWP.Services
@@ -18,6 +19,7 @@ namespace BeaconInsightsUWP.Services
         private bool _restartingBeaconWatch;
 
         private readonly BluetoothLEAdvertisementWatcher _watcher;
+        private readonly BluetoothLEAdvertisementPublisher _publisher;
 
         private readonly BeaconManager _beaconManager;
 
@@ -52,6 +54,9 @@ namespace BeaconInsightsUWP.Services
 
             // Create the Bluetooth LE watcher from the Windows 10 UWP
             _watcher = new BluetoothLEAdvertisementWatcher { ScanningMode = BluetoothLEScanningMode.Active };
+
+            // Create the Bluetooth LE publisher from the Windows 10 UWP
+            _publisher = new BluetoothLEAdvertisementPublisher();
 
             // Construct the Universal Bluetooth Beacon manager
             _beaconManager = new BeaconManager();
@@ -152,6 +157,31 @@ namespace BeaconInsightsUWP.Services
         public BluetoothLEAdvertisementWatcher GetWatcher()
         {
             return _watcher;
+        }
+
+        public void StartAdvertising()
+        {
+            _publisher.Start();
+        }
+
+        public void StopAdvertising()
+        {
+            _publisher.Stop();
+        }
+
+        public void SetAdvertisingPayload(Beacon.BeaconTypeEnum protocol)
+        {
+            var writer = new DataWriter();
+            UInt16 uuidData = 0x1234;
+            writer.WriteUInt16(uuidData);
+
+            var manufacturerData = new BluetoothLEManufacturerData();
+            //manufacturerData.CompanyId = 0x0006; // Microsoft
+            manufacturerData.CompanyId = 0x4C00; // iBeacon
+            manufacturerData.Data = writer.DetachBuffer();
+
+            _publisher.Advertisement.ManufacturerData.Clear();
+            _publisher.Advertisement.ManufacturerData.Add(manufacturerData);
         }
     }
 }
