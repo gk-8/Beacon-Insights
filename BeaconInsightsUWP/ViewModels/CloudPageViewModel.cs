@@ -1,6 +1,7 @@
 ﻿using BeaconInsightsUWP.Models;
 using BeaconInsightsUWP.Services.Interfaces;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using Template10.Mvvm;
 using UniversalBeaconLibrary.Beacon;
@@ -53,13 +54,21 @@ namespace BeaconInsightsUWP.ViewModels
 
         private void Watcher_Received(BluetoothLEAdvertisementWatcher sender, BluetoothLEAdvertisementReceivedEventArgs args)
         {
-            foreach (var beacon in BeaconsList)
+            try
             {
-                if (beacon.BeaconType != Beacon.BeaconTypeEnum.Unknown) {
-                    BeaconMessage bm = new BeaconMessage(beacon);
-                    JsonSerializerSettings jss = new JsonSerializerSettings();
-                    _azureEventHubService.SendMessage(JsonConvert.SerializeObject(bm));
+                foreach (var beacon in BeaconsList)
+                {
+                    if (beacon.BeaconType != Beacon.BeaconTypeEnum.Unknown)
+                    {
+                        BeaconMessage bm = new BeaconMessage(beacon);
+                        bm.Device = "GorkmaSP3";
+                        _azureEventHubService.SendMessage(JsonConvert.SerializeObject(bm));
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                // Sometimes the collection changes while getting through the foreach loop
             }
         }
 

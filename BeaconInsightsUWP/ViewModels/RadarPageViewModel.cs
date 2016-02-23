@@ -59,7 +59,7 @@ namespace BeaconInsightsUWP.ViewModels
             StatusLabel = _beaconManagementService.GetStatusLabel();
 
             _dispatcherTimer = new DispatcherTimer();
-            _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1, 0);
+            _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             _dispatcherTimer.Tick += UpdateRadarList;
             _dispatcherTimer.Start();
         }
