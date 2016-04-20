@@ -52,15 +52,15 @@
 
         <!--  page header  -->
         <controls:PageHeader Content="{Binding StatusLabel}">
-            <controls:PageHeader.PrimaryCommands>
-                <!--<AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Filter" Label="Filter unknown beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
-                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Clear" Label="Show all beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}}" />-->
+            <!--<controls:PageHeader.PrimaryCommands>
+                --><!--<AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Filter" Label="Filter unknown beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
+                <AppBarButton Click="{x:Bind ViewModel.SwitchFilteringSetting}" Foreground="White" Icon="Clear" Label="Show all beacons" Visibility="{Binding FilteringUnknownBeacons, Converter={StaticResource BoolToVisibilityConverter}}" />--><!--
             </controls:PageHeader.PrimaryCommands>
             <controls:PageHeader.SecondaryCommands>
-                <!--<AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
+                --><!--<AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
                 <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
-                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />-->
-            </controls:PageHeader.SecondaryCommands>
+                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />--><!--
+            </controls:PageHeader.SecondaryCommands>-->
         </controls:PageHeader>
 
         <!--  page content  -->
